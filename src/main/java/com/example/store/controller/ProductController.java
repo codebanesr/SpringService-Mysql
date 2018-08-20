@@ -20,23 +20,23 @@ public class ProductController {
     ProductRepository productRepository;
 
     @GetMapping("/products")
-    public List<Product> getAllNotes() {
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
     @PostMapping("/product")
-    public Product createNote(@Valid @RequestBody Product product) {
+    public Product createProduct(@Valid @RequestBody Product product) {
         return productRepository.save(product);
     }
 
     @GetMapping("/product/{id}")
-    public Product getNoteById(@PathVariable(value = "id") Long noteId) {
+    public Product getProductById(@PathVariable(value = "id") Long noteId) {
         return productRepository.findById(noteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "id", noteId));
     }
 
     @PutMapping("/product/{id}")
-    public Product updateNote(@PathVariable(value = "id") Long noteId,
+    public Product updateProduct(@PathVariable(value = "id") Long noteId,
                                            @Valid @RequestBody Product noteDetails) {
 
         Product product = productRepository.findById(noteId)
@@ -45,12 +45,12 @@ public class ProductController {
         product.setTitle(noteDetails.getTitle());
         product.setContent(noteDetails.getContent());
 
-        Product updatedNote = productRepository.save(product);
-        return updatedNote;
+        Product updatedProduct = productRepository.save(product);
+        return updatedProduct;
     }
 
     @DeleteMapping("/product/{id}")
-    public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long noteId) {
+    public ResponseEntity<?> deleteProduct(@PathVariable(value = "id") Long noteId) {
         Product product = productRepository.findById(noteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "id", noteId));
 
